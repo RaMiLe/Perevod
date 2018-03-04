@@ -29,6 +29,7 @@ to register.</p>
 <form method="post" action="index.php" enctype="multipart/form-data" >
 <input type ="text" name ="name" id ="name" placeholder ="Введите ваше имя">
 <input type ="text" name ="email" id ="email" placeholder ="Ваш еmail..">
+  <input type ="text" name ="Login" id ="Login" placeholder ="Ваш логин..">
 <select name="country">
 <option value="">All</option>
 <option value="Russia">Russia</option>
@@ -40,7 +41,12 @@ to register.</p>
 <input type ="submit" name ="submit" value ="Отправить">
 <input type="submit" name="filter" value="Фильтр">
 </form>
+
 <?php
+$dsn = "sqlsrv:server = tcp:rom.database.windows.net,1433; Database = qqq";
+$username = "rom";
+$password = "Rosbank1997";
+
 $dsn = "sqlsrv:server = tcp:asus20.database.windows.net,1433; Database = deneg";
 $username = "asus97";
 $password = "Rosbank20";
@@ -48,28 +54,26 @@ try {
 $conn = new PDO($dsn, $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
-catch (PDOException $e) {
-print("Ошибка подключения к SQL Server.");
-die(print_r($e));
-}
+
 if(!empty($_POST)) {
 try {
 $name = $_POST['name'];
-  $password = $_POST['name'];
 $email = $_POST['email'];
 $date = date("Y-m-d");
-$country = $_POST['password'];
-if ($name == "" || $email == ""$password == "") {
+$country = $_POST['country'];
+
+if ($name == "" || $email == "") {
 echo "<h3>Не заполнены поля name и email.</h3>";
 }
 else {
-$sql_insert ="INSERT INTO registration_on (name, email, date, password) VALUES (?,?,?,?)";
+$sql_insert ="INSERT INTO registration_on (name, email, date, country) VALUES (?,?,?,?)";
 $stmt = $conn->prepare($sql_insert);
 $stmt->bindValue(1, $name);
 $stmt->bindValue(2, $email);
 $stmt->bindValue(3, $date);
 $stmt->bindValue(4, $country);
 $stmt->execute();
+
 echo "<h3>Вы зарегистрировались!</h3>";
 }
 }
@@ -77,6 +81,7 @@ catch(Exception $e) {
 die(var_dump($e));
 }
 }
+
 $sql_select = "SELECT * FROM registration_on";
 $stmt = $conn->query($sql_select);
 $stmt->execute();
@@ -105,4 +110,7 @@ echo "</table>";
 else {
 echo "<h3>В настоящее время никто не зарегистрирован.</h3>";
 }
+
 ?>
+
+
