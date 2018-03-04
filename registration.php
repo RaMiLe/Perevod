@@ -90,64 +90,63 @@ print("Ошибка подключения к SQL Server.");
 die(print_r($e));
 }
 
-if(!empty($_POST)) {
-try {
+include_once("bd.php");
+
+if (isset($_POST['submit'])){
+    if(empty($_POST['login']))  {
+    echo '<br><font color="red"><img border="0" src="error.gif" alt="Введите логин"> Введите логин!</font>';
+}
+elseif (!preg_match("/^\w{3,}$/", $_POST['login'])) {
+echo '<br><font color="red"><img border="0" src="error.gif" alt="В поле "Логин" введены недопустимые символы!">В поле "Логин" введены недопустимые символы! Только буквы, цифры и подчеркивание!</font>';
+}
+elseif(empty($_POST['password'])) {
+echo '<br><font color="red"><img border="0" src="error.gif" alt="Введите пароль !">Введите пароль!</font>';
+}
+elseif (!preg_match("/\A(\w){6,20}\Z/", $_POST['password'])) {
+echo '<br><font color="red"><img border="0" src="error.gif" alt="Пароль слишком короткий!">Пароль слишком короткий! Пароль должен быть не менее 6 символов! </font>';
+}
+elseif(empty($_POST['password2'])) {
+echo '<br><font color="red"><img border="0" src="error.gif" alt="Введите подтверждение пароля!">Введите подтверждение пароля!</font>';
+}
+elseif($_POST['password'] != $_POST['password2']) {
+echo '<br><font color="red"><img border="0" src="error.gif" alt="Введенные пароли не совпадают!">Введенные пароли не совпадают!</font>';
+}
+elseif(empty($_POST['email'])) {
+echo '<br><font color="red"><img border="0" src="error.gif" alt="Введите E-mail!">Введите E-mail! </font>';
+}
+elseif (!preg_match("/^[a-zA-Z0-9_\.\-]+@([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,6}$/", $_POST['email'])) {
+echo '<br><font color="red"><img border="0" src="error.gif" alt="E-mail имеет недопустимий формат!">E-mail имеет недопустимий формат! Например, name@gmail.com! </font>';
+}
+
+else{
+$login = $_POST['login'];
 $password = $_POST['password'];
-  $login = $_POST['login'];
-$name = $_POST['name'];
+$mdPassword = md5($password);
+$password2 = $_POST['password2'];
 $email = $_POST['email'];
-$date = date("Y-m-d");
-$country = $_POST['country'];
+$rdate = date("d-m-Y в H:i");
+$name = $_POST['name'];
+$lastname = $_POST['lastname']; 
 
-if ($name == "" || $email == ""|| password == "" login == "") {
-echo "<h3>Не заполнены поля name и email и пароль и логин.</h3>";
+$query = ("SELECT id FROM users WHERE login='$login'");
+$sql = mysql_query($query) or die(mysql_error());
+
+if (mysql_num_rows($sql) > 0) {
+echo '<font color="red"><img border="0" src="error.gif" alt="Пользователь с таким логином зарегистрированый!">Пользователь с таким логином зарегистрирован!</font>';
 }
 else {
-$sql_insert ="INSERT INTO registration_on (name, email, date, country) VALUES (?,?,?,?)";
-$stmt = $conn->prepare($sql_insert);
-$stmt->bindValue(1, $name);
-$stmt->bindValue(2, $email);
-$stmt->bindValue(3, $date);
-$stmt->bindValue(4, $country);
-$stmt->execute();
-
-echo "<h3>Вы зарегистрировались!</h3>";
+$query2 = ("SELECT id FROM users WHERE email='$email'");
+$sql = mysql_query($query2) or die(mysql_error());
+if (mysql_num_rows($sql) > 0){
+echo '<font color="red"><img border="0" src="error.gif"  alt="Пользователь с таким e-mail зарегистрированый!">Пользователь с таким e-mail уже зарегистрирован!</font>';
+}
+else{
+$query = "INSERT INTO users (login, password, email, reg_date, name_user, lastname )
+VALUES ('$login', '$mdPassword', '$email', '$rdate', '$name', '$lastname')";
+$result = mysql_query($query) or die(mysql_error());;
+echo '<font color="green"><img border="0" src="ok.gif"  alt="Вы успешно зарегистрировались!">Вы успешно зарегистрировались!</font><br><a href="index.php">На главную</a>';
 }
 }
-catch(Exception $e) {
-die(var_dump($e));
 }
 }
-
-$sql_select = "SELECT * FROM registration_on";
-$stmt = $conn->query($sql_select);
-$stmt->execute();
-if(isset($_POST['filter'])) {
-$gender = $_POST['country'];
-$sql_select = "SELECT * FROM registration_on WHERE country like :country";
-$stmt = $conn->prepare($sql_select);
-$stmt->execute(array(':country'=>$country.'%'));
-}
-$registrants = $stmt->fetchAll();
-if(count($registrants) > 0) {
-echo "<h2>Люди, которые зарегистрированы:</h2>";
-echo "<table>";
-echo "<tr><th>Name</th>";
-echo "<th>Email</th>";
-echo "<th>Country</th>";
-echo "<th>Date</th></tr>";
-foreach($registrants as $registrant) {
-echo "<td>".$registrant['name']."</td>";
-echo "<td>".$registrant['email']."</td>";
-echo "<td>".$registrant['country']."</td>";
-echo "<td>".$registrant['date']."</td></tr>";
-}
-echo "</table>";
-}
-else {
-echo "<h3>В настоящее время никто не зарегистрирован.</h3>";
-}
-
 ?>
-
-
