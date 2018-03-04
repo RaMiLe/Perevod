@@ -96,9 +96,11 @@ if (isset($_POST['submit'])){
     if(empty($_POST['login']))  {
     echo '<br><font color="red"><img border="0" src="error.gif" alt="Введите логин"> Введите логин!</font>';
 }
-elseif (!preg_match("/^\w{3,}$/", $_POST['login'])) {
-echo '<br><font color="red"><img border="0" src="error.gif" alt="В поле "Логин" введены недопустимые символы!">В поле "Логин" введены недопустимые символы! Только буквы, цифры и подчеркивание!</font>';
+    if (isset($_POST['submit'])){
+    if(empty($_POST['password']))  {
+    echo '<br><font color="red"><img border="0" src="error.gif" alt="Введите"> Введите пароль!</font>';
 }
+
 elseif(empty($_POST['password'])) {
 echo '<br><font color="red"><img border="0" src="error.gif" alt="Введите пароль !">Введите пароль!</font>';
 }
