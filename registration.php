@@ -92,7 +92,7 @@ die(print_r($e));
 
 if(!empty($_POST)) {
 try {
-  $password = $_POST['name'];
+  $password = $_POST['password'];
 $name = $_POST['name'];
 $email = $_POST['email'];
 $date = date("Y-m-d");
