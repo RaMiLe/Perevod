@@ -30,7 +30,7 @@ to register.</p>
 <input type ="text" name ="name" id ="name" placeholder ="Введите ваше имя">
 <input type ="text" name ="email" id ="email" placeholder ="Ваш еmail..">
 <input type ="submit" name ="submit" value ="Войти">
-<a href="/C:/Users/user/Desktop/Новая%20папка/перевод.html"> Регистрация </a>
+<a href="Rame.php"> Регистрация </a>
  
 </body>
 </form> 
