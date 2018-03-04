@@ -55,9 +55,10 @@ die(print_r($e));
 if(!empty($_POST)) {
 try {
 $name = $_POST['name'];
+  $password = $_POST['name'];
 $email = $_POST['email'];
 $date = date("Y-m-d");
-$password = $_POST['password'];
+$country = $_POST['password'];
 if ($name == "" || $email == ""$password == "") {
 echo "<h3>Не заполнены поля name и email.</h3>";
 }
@@ -67,7 +68,7 @@ $stmt = $conn->prepare($sql_insert);
 $stmt->bindValue(1, $name);
 $stmt->bindValue(2, $email);
 $stmt->bindValue(3, $date);
-$stmt->bindValue(4, $password);
+$stmt->bindValue(4, $country);
 $stmt->execute();
 echo "<h3>Вы зарегистрировались!</h3>";
 }
