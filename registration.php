@@ -41,9 +41,9 @@ to register.</p>
 <input type="submit" name="filter" value="Фильтр">
 </form>
 <?php
-$dsn = "sqlsrv:server = tcp:rom.database.windows.net,1433; Database = qqq";
-$username = "rom";
-$password = "Rosbank1997";
+$dsn = "sqlsrv:server = tcp:asus20.database.windows.net,1433; Database = deneg";
+$username = "asus97";
+$password = "Rosbank20";
 try {
 $conn = new PDO($dsn, $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -57,17 +57,17 @@ try {
 $name = $_POST['name'];
 $email = $_POST['email'];
 $date = date("Y-m-d");
-$country = $_POST['country'];
-if ($name == "" || $email == "") {
+$password = $_POST['password'];
+if ($name == "" || $email == ""$password == "") {
 echo "<h3>Не заполнены поля name и email.</h3>";
 }
 else {
-$sql_insert ="INSERT INTO registration_on (name, email, date, country) VALUES (?,?,?,?)";
+$sql_insert ="INSERT INTO registration_on (name, email, date, password) VALUES (?,?,?,?)";
 $stmt = $conn->prepare($sql_insert);
 $stmt->bindValue(1, $name);
 $stmt->bindValue(2, $email);
 $stmt->bindValue(3, $date);
-$stmt->bindValue(4, $country);
+$stmt->bindValue(4, $password);
 $stmt->execute();
 echo "<h3>Вы зарегистрировались!</h3>";
 }
