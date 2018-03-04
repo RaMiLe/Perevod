@@ -1,39 +1,3 @@
-<form action="verification.php" method="POST">
-
-<table>
-<tr>
-<td>Логин<font color="red">*</font>:</td>
-<td><input type="text" size="20" name="login"></td>
-</tr>
-<tr>
-<td>Пароль<font color="red">*</font>:</td>
-<td><input type="password" size="20" maxlength="20" name="password"></td>
-</tr>
-<tr>
-<td>Подтверждения пароля<font color="red">*</font>:</td>
-<td><input type="password" size="20" maxlength="20" name="password2"></td>
-</tr>
-<tr>
-<td>E-mail<font color="red">*</font>:</td>
-<td><input type="text" size="20" name="email"></td>
-</tr>
-<tr>
-<td>Имя:</td>
-<td><input type="text" size="20" name="name"></td>
-</tr>
-<tr>
-<td>Фамилия:</td>
-<td><input type="text" size="20" name="lastname"></td>
-</tr>
-<tr>
-<td></td>
-<td colspan="2"><input type="submit" value="Зарегистроваться" name="submit">
-</td>
-</tr>
-</table>
-</form>
-
-<br>Поля со значком <font color="red">*</font> обязательны для заполнения
 <html>
 <head>
 <Title>Registration Form</Title>
@@ -62,7 +26,7 @@ border: 0 none; }
 <p>Fill in your name and
 email address, then click <strong>Submit</strong>
 to register.</p>
-<form method="post" action="registration.php" enctype="multipart/form-data" >
+<form method="post" action="index.php" enctype="multipart/form-data" >
 <input type ="text" name ="name" id ="name" placeholder ="Введите ваше имя">
 <input type ="text" name ="email" id ="email" placeholder ="Ваш еmail..">
 <select name="country">
@@ -78,9 +42,10 @@ to register.</p>
 </form>
 
 <?php
-$dsn = "sqlsrv:server = tcp:asus20.database.windows.net,1433; Database = deneg";
-$username = "asus97";
-$password = "Rosbank20";
+$dsn = "sqlsrv:server = tcp:rom.database.windows.net,1433; Database = qqq";
+$username = "rom";
+$password = "Rosbank1997";
+
 try {
 $conn = new PDO($dsn, $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -89,16 +54,16 @@ catch (PDOException $e) {
 print("Ошибка подключения к SQL Server.");
 die(print_r($e));
 }
+
 if(!empty($_POST)) {
 try {
-  $Login = $_POST['Login'];
-  
-$Name = $_POST['Name'];
+$name = $_POST['name'];
 $email = $_POST['email'];
 $date = date("Y-m-d");
 $country = $_POST['country'];
-if ($name == "" || $email == ""|| Login == "") {
-echo "<h3>Не заполнены поля name и email и login и password и password2 == "".</h3>";
+
+if ($name == "" || $email == "") {
+echo "<h3>Не заполнены поля name и email.</h3>";
 }
 else {
 $sql_insert ="INSERT INTO registration_on (name, email, date, country) VALUES (?,?,?,?)";
@@ -108,6 +73,7 @@ $stmt->bindValue(2, $email);
 $stmt->bindValue(3, $date);
 $stmt->bindValue(4, $country);
 $stmt->execute();
+
 echo "<h3>Вы зарегистрировались!</h3>";
 }
 }
@@ -115,6 +81,7 @@ catch(Exception $e) {
 die(var_dump($e));
 }
 }
+
 $sql_select = "SELECT * FROM registration_on";
 $stmt = $conn->query($sql_select);
 $stmt->execute();
@@ -143,5 +110,7 @@ echo "</table>";
 else {
 echo "<h3>В настоящее время никто не зарегистрирован.</h3>";
 }
+
 ?>
+
 
