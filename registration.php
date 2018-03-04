@@ -43,14 +43,14 @@ to register.</p>
 </form>
 
 <?php
-$dsn = "sqlsrv:server = tcp:rom.database.windows.net,1433; Database = qqq";
-$username = "rom";
-$password = "Rosbank1997";
-
+dsn = "sqlsrv:server = tcp:asus20.database.windows.net,1433; Database = deneg";
+$username = "asus97";
+$password = "Rosbank20";
 try {
 $conn = new PDO($dsn, $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
+
 catch (PDOException $e) {
 print("Ошибка подключения к SQL Server.");
 die(print_r($e));
