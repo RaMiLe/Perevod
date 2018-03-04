@@ -92,12 +92,14 @@ die(print_r($e));
 if(!empty($_POST)) {
 try {
   $Login = $_POST['Login'];
+  $password = $_POST['password'];
+  $password2 = $_POST['password2'];
 $Name = $_POST['Name'];
 $email = $_POST['email'];
 $date = date("Y-m-d");
 $country = $_POST['country'];
-if ($name == "" || $email == ""|| Login == "") {
-echo "<h3>Не заполнены поля name и email и login.</h3>";
+if ($name == "" || $email == ""|| Login == ""|| password == "" password2 == "") {
+echo "<h3>Не заполнены поля name и email и login и password и password2 == "".</h3>";
 }
 else {
 $sql_insert ="INSERT INTO registration_on (name, email, date, country) VALUES (?,?,?,?)";
