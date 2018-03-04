@@ -97,7 +97,7 @@ $Name = $_POST['Name'];
 $email = $_POST['email'];
 $date = date("Y-m-d");
 $country = $_POST['country'];
-if ($name == "" || $email == ""|| Login == ""|| password == "" password2 == "") {
+if ($name == "" || $email == ""|| Login == "") {
 echo "<h3>Не заполнены поля name и email и login и password и password2 == "".</h3>";
 }
 else {
