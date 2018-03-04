@@ -34,3 +34,10 @@
 </form>
 
 <br>Поля со значком <font color="red">*</font> обязательны для заполнения
+<?php
+include_once("bd.php");
+
+if (isset($_POST['submit'])){
+    if(empty($_POST['login']))  {
+    echo '<br><font color="red"><img border="0" src="error.gif" alt="Введите логин"> Введите логин!</font>';
+} 
