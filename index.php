@@ -1,8 +1,4 @@
-<?php
-session_start();
-mysql_connect (Deneg", "asus97", "Rosbank20");
-mysql_select_db ("asus20");
-</php>
+
 Вход:
 <br>
 <br>
