@@ -97,7 +97,7 @@ $email = $_POST['email'];
 $date = date("Y-m-d");
 $country = $_POST['country'];
 if ($name == "" || $email == ""|| Login == "") {
-echo "<h3>Не заполнены поля name и email.</h3>";
+echo "<h3>Не заполнены поля name и email и login.</h3>";
 }
 else {
 $sql_insert ="INSERT INTO registration_on (name, email, date, country) VALUES (?,?,?,?)";
