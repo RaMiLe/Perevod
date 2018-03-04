@@ -26,8 +26,7 @@ border: 0 none; }
 <p>Fill in your name and
 email address, then click <strong>Submit</strong>
 to register.</p>
-<form method="post" action="registration.php
-" enctype="multipart/form-data" >
+<form method="post" action="registration.php" enctype="multipart/form-data" >
 <input type ="text" name ="name" id ="name" placeholder ="Введите ваше имя">
 <input type ="text" name ="email" id ="email" placeholder ="Ваш еmail..">
 <select name="country">
@@ -43,14 +42,13 @@ to register.</p>
 </form>
 
 <?php
-dsn = "sqlsrv:server = tcp:asus20.database.windows.net,1433; Database = deneg";
+$dsn = "sqlsrv:server = tcp:asus20.database.windows.net,1433; Database = deneg";
 $username = "asus97";
 $password = "Rosbank20";
 try {
 $conn = new PDO($dsn, $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
-
 catch (PDOException $e) {
 print("Ошибка подключения к SQL Server.");
 die(print_r($e));
