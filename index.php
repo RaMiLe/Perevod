@@ -20,4 +20,4 @@
 </table></form>
 
 <a href="registration.php">Регистрация</a>
-<a href="Rame.php"> Регистрация </a>
+
