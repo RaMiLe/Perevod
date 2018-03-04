@@ -91,11 +91,12 @@ die(print_r($e));
 }
 if(!empty($_POST)) {
 try {
-$name = $_POST['name'];
+  $Login = $_POST['Login'];
+$Name = $_POST['Name'];
 $email = $_POST['email'];
 $date = date("Y-m-d");
 $country = $_POST['country'];
-if ($name == "" || $email == "") {
+if ($name == "" || $email == ""|| Login == "") {
 echo "<h3>Не заполнены поля name и email.</h3>";
 }
 else {
