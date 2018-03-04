@@ -1,14 +1,4 @@
-<?php
-session_start();
 
-try {
-    $conn = new PDO("sqlsrv:server = tcp:asus20.database.windows.net,1433; Database = Deneg", "asus97", "{Rosbank20");
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-$login = $_SESSION['login'];
-$password = $_SESSION['password'];
-$id_user = $_SESSION['id'];
-?>
 Вход:
 <br>
 <br>
