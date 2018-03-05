@@ -6,6 +6,8 @@ try {
 id INT NOT NULL IDENTITY(1,1),
 PRIMARY KEY(id),
 login VARCHAR(30),
+pa VARCHAR(30),
+pas VARCHAR(30),
 name VARCHAR(30),
 email VARCHAR(30),
 country VARCHAR(10),
