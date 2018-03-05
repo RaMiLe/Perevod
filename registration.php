@@ -1,50 +1,39 @@
-<html>
-<head>
-<Title>Registration Form</Title>
-<style type="text/css">
-body { background-color:
-#fff; border-top: solid 10px #000;
-color: #333; font-size: .85em;
-margin: 20; padding: 20;
-font-family: "Segoe UI",
-Verdana, Helvetica, Sans-Serif;
-}
-h1, h2, h3,{ color: #000;
-margin-bottom: 0; padding-bottom: 0; }
-h1 { font-size: 2em; }
-h2 { font-size: 1.75em; }
-h3 { font-size: 1.2em; }
-table { margin-top: 0.75em; }
-th { font-size: 1.2em;
-text-align: left; border: none; padding-left: 0; }
-td { padding: 0.25em 2em 0.25em 0em;
-border: 0 none; }
-</style>
-</head>
-<body>
-<h1>Register here!</h1>
-<p>Fill in your name and
-email address, then click <strong>Submit</strong>
-to register.</p>
-<form method="post" action="registration.php
-" enctype="multipart/form-data" >
-<input type ="text" name ="name" id ="name" placeholder ="Введите ваше имя">
-<input type ="text" name ="email" id ="email" placeholder ="Ваш еmail..">
-  <input type ="text" name ="login" id ="login" placeholder ="Введите  логин">
-  <input type ="text" name ="pas" id ="pas" placeholder ="Ваш пароль..">
-   <input type ="text" name ="pa" id ="pa" placeholder ="Подвердите пароль..">
-<select name="country">
-<option value="">All</option>
-<option value="Russia">Russia</option>
-<option value="USA">USA</option>
-<option value="Germany">Germany</option>
-<option value="Japan">Japan</option>
-<option value="China">China</option>
-</select>
-<input type ="submit" name ="submit" value ="Отправить">
-<input type="submit" name="filter" value="Фильтр">
+<form action="verification.php" method="POST">
+
+<table>
+<tr>
+<td>Логин<font color="red">*</font>:</td>
+<td><input type="text" size="20" name="login"></td>
+</tr>
+<tr>
+<td>Пароль<font color="red">*</font>:</td>
+<td><input type="password" size="20" maxlength="20" name="password"></td>
+</tr>
+<tr>
+<td>Подтверждения пароля<font color="red">*</font>:</td>
+<td><input type="password" size="20" maxlength="20" name="password2"></td>
+</tr>
+<tr>
+<td>E-mail<font color="red">*</font>:</td>
+<td><input type="text" size="20" name="email"></td>
+</tr>
+<tr>
+<td>Имя:</td>
+<td><input type="text" size="20" name="name"></td>
+</tr>
+<tr>
+<td>Фамилия:</td>
+<td><input type="text" size="20" name="lastname"></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="2"><input type="submit" value="Зарегистроваться" name="submit">
+</td>
+</tr>
+</table>
 </form>
 
+<br>Поля со значком <font color="red">*</font> обязательны для заполнения
 <?php
 $dsn = "sqlsrv:server = tcp:asus20.database.windows.net,1433; Database = deneg";
 $username = "asus97";
@@ -53,65 +42,7 @@ try {
 $conn = new PDO($dsn, $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
-catch (PDOException $e) {
-print("Ошибка подключения к SQL Server.");
-die(print_r($e));
-}
-if(!empty($_POST)) {
-try {
-$name = $_POST['name'];
-$email = $_POST['email'];
-$date = date("Y-m-d");
-$country = $_POST['country'];
-  $login = $_POST['login'];
-  $pa = $_POST['pa'];
-  $pas = $_POST['pas'];
-if ($name == "" || $email == ""|| $login == ""|| $pas == ""|| $pa == "") {
-echo "<h3>Не заполнены поля name и email и логин и пароль и подтверждение пароля.</h3>";
-  
-  
 
-else {
-$sql_insert ="INSERT INTO registration_on (name, email, date, country) VALUES (?,?,?,?)";
-$stmt = $conn->prepare($sql_insert);
-$stmt->bindValue(1, $name);
-$stmt->bindValue(2, $email);
-$stmt->bindValue(3, $date);
-$stmt->bindValue(4, $country);
-$stmt->execute();
-echo "<h3>Вы зарегистрировались!</h3>";
-}
-}
-catch(Exception $e) {
-die(var_dump($e));
-}
-}
-$sql_select = "SELECT * FROM registration_on";
-$stmt = $conn->query($sql_select);
-$stmt->execute();
-if(isset($_POST['filter'])) {
-$gender = $_POST['country'];
-$sql_select = "SELECT * FROM registration_on WHERE country like :country";
-$stmt = $conn->prepare($sql_select);
-$stmt->execute(array(':country'=>$country.'%'));
-}
-$registrants = $stmt->fetchAll();
-if(count($registrants) > 0) {
-echo "<h2>Люди, которые зарегистрированы:</h2>";
-echo "<table>";
-echo "<tr><th>Name</th>";
-echo "<th>Email</th>";
-echo "<th>Country</th>";
-echo "<th>Date</th></tr>";
-foreach($registrants as $registrant) {
-echo "<td>".$registrant['name']."</td>";
-echo "<td>".$registrant['email']."</td>";
-echo "<td>".$registrant['country']."</td>";
-echo "<td>".$registrant['date']."</td></tr>";
-}
-echo "</table>";
-}
-else {
-echo "<h3>В настоящее время никто не зарегистрирован.</h3>";
-}
-?>
+if (isset($_POST['submit'])){
+    if(empty($_POST['login']))  {
+    echo '<br><font color="red"><img border="0" src="error.gif" alt="Введите логин"> Введите логин!</font>';
