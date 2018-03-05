@@ -31,6 +31,8 @@ to register.</p>
 <input type ="text" name ="name" id ="name" placeholder ="Введите ваше имя">
 <input type ="text" name ="email" id ="email" placeholder ="Ваш еmail..">
   <input type ="text" name ="login" id ="login" placeholder ="Введите  логин">
+  <input type ="text" name ="pas" id ="pas" placeholder ="Ваш пароль..">
+   <input type ="text" name ="pa" id ="pa" placeholder ="Подвердите пароль..">
 <select name="country">
 <option value="">All</option>
 <option value="Russia">Russia</option>
