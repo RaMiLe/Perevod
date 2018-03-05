@@ -69,10 +69,8 @@ $country = $_POST['country'];
 if ($name == "" || $email == ""|| $login == ""|| $pas == ""|| $pa == "") {
 echo "<h3>Не заполнены поля name и email и логин и пароль и подтверждение пароля.</h3>";
   
-}
-  if ($_POST['pa'] $_POST['pas']) {
-    echo "<h3>Пароли не совпадают.<h3>";
-  }
+  
+
 else {
 $sql_insert ="INSERT INTO registration_on (name, email, date, country) VALUES (?,?,?,?)";
 $stmt = $conn->prepare($sql_insert);
