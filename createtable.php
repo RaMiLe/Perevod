@@ -5,12 +5,12 @@ try {
 }
 id INT NOT NULL IDENTITY(1,1),
 PRIMARY KEY(id),
-login VARCHAR(30),
-pa VARCHAR(30),
-pas VARCHAR(30),
-name VARCHAR(30),
-email VARCHAR(30),
-country VARCHAR(10),
+login` VARCHAR( 20 ) NOT NULL ,
+`password` VARCHAR( 35 ) NOT NULL ,
+`email` VARCHAR( 50 ) NOT NULL ,
+`reg_date` VARCHAR( 32 ) NOT NULL ,
+`name_user` VARCHAR( 32 ) NOT NULL ,
+`lastname` VARCHAR( 32 ) NOT NULL 
 date DATE)";
 $conn->query($sql);
 echo "<h3>Таблица создана.</h3>";
