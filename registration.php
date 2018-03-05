@@ -64,8 +64,10 @@ $email = $_POST['email'];
 $date = date("Y-m-d");
 $country = $_POST['country'];
   $login = $_POST['login'];
-if ($name == "" || $email == ""|| $login == "") {
-echo "<h3>Не заполнены поля name и email и логин.</h3>";
+  $pa = $_POST['pa'];
+  $pas = $_POST['pas'];
+if ($name == "" || $email == ""|| $login == ""|| $pas == ""|| $pa == "") {
+echo "<h3>Не заполнены поля name и email и логин и пароль и подтверждение пароля.</h3>";
 }
 else {
 $sql_insert ="INSERT INTO registration_on (name, email, date, country) VALUES (?,?,?,?)";
