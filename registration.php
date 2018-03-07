@@ -39,12 +39,14 @@ to register.</p>
 </select>
 <input type ="submit" name ="submit" value ="Отправить">
 <input type="submit" name="filter" value="Фильтр">
+  <input type="password" name="password-1" placeholder="Придумайте пароль">
+          <input type="password" name="password-2" placeholder="Введите пароль еще раз">
 </form>
 
 <?php
-$dsn = "sqlsrv:server = tcp:asus20.database.windows.net,1433; Database = Deneg";
-$username = "asus97";
-$password = "Rosbank20";
+$dsn = "sqlsrv:server = tcp:rom.database.windows.net,1433; Database = qqq";
+$username = "rom";
+$password = "Rosbank1997";
 try {
 $conn = new PDO($dsn, $username, $password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
