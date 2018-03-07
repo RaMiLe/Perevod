@@ -8,6 +8,8 @@ mysql_query("SET NAMES utf8");
 $login = $_SESSION['login'];
 $password = $_SESSION['password'];
 $id_user = $_SESSION['id'];
+;
+?>
 CREATE TABLE `users` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `login` VARCHAR( 20 ) NOT NULL ,
@@ -17,5 +19,4 @@ CREATE TABLE `users` (
 `name_user` VARCHAR( 32 ) NOT NULL ,
 `lastname` VARCHAR( 32 ) NOT NULL ,
 PRIMARY KEY ( `id` )
-);
-?>
+)
