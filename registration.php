@@ -39,8 +39,7 @@ to register.</p>
 </select>
 <input type ="submit" name ="submit" value ="Отправить">
 <input type="submit" name="filter" value="Фильтр">
-  <input type="password" name="password-1" placeholder="Придумайте пароль">
-          <input type="password" name="password-2" placeholder="Введите пароль еще раз">
+  
 </form>
 
 <?php
