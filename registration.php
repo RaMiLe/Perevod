@@ -27,6 +27,8 @@ border: 0 none; }
 email address, then click <strong>Submit</strong>
 to register.</p>
 <form method="post" action="index.php" enctype="multipart/form-data" >
+  <input type="password" name="password-1" placeholder="Придумайте пароль">
+          <input type="password" name="password-2" placeholder="Введите пароль еще раз">
 <input type ="text" name ="name" id ="name" placeholder ="Введите ваше имя">
 <input type ="text" name ="email" id ="email" placeholder ="Ваш еmail..">
 <select name="country">
