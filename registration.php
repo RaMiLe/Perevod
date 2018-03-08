@@ -1,50 +1,58 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<?php
+
+require_once('db.php');
+
+if (isset($_POST['submit'])) {
+
+    $username = $_POST['username'];
+    $password_1 = $_POST['password-1'];
+    $password_2 = $_POST['password-2'];
+    $email = $_POST['email'];
+
+    if (!empty($username) && !empty($password_1) && !empty($password_2) && ($password_1 == $password_2)) {
+      $sql_select = "SELECT * FROM signup WHERE username = '$username'";
+      $stmt = $conn->query($sql_select);
+      $stmt->execute();
+      $data = $stmt->fetchAll();
+
+      if(count($data) == 0) {
+        $sql_insert = "INSERT INTO signup (username, password, email) VALUES (?,?,?)";
+        $stmt = $conn->prepare($sql_insert);
+        $stmt->bindValue(1, $username);
+        $stmt->bindValue(2, $password_1);
+        $stmt->bindValue(3, $email);
+        $stmt->execute();
+        
+        echo 'Вы зарегистрированны!';
+        exit();
+      }
+      else {
+        echo 'Такой пользователь уже существует!';
+      }
+    }
+  }
+?>
+
+<!DOCTYPE html>
 <html>
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Регистрация</title>
-  <style type="text/css">
-   INPUT {
-    background: silver; margin:0px; padding:1px; /* Цвет фона */
-   }
-  </style>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/sug.css">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <title>Страхование жизни</title>
   </head>
   <body>
-<table>
- 
-      <form action="verification.php" method="POST">
-      <tr>
-      <td>Логин<font color="red">*</font>:</td>
-      <td><input type="text" size="20" name="login" ></td>
-      </tr>
-      <tr>
-      <td>Пароль<font color="red">*</font>:</td>
-      <td><input type="password" size="20" maxlength="20" name="password" ></td>
-      </tr>
-      <tr>
-      <td>Подтверждения пароля<font color="red">*</font>:</td>
-      <td><input type="password" size="20" maxlength="20" name="password2"></td>
-      </tr>
-      <tr>
-      <td>E-mail<font color="red">*</font>:</td>
-      <td><input type="text" size="20" name="email"></td>
-      </tr>
-       <tr>
-      <td>Имя:</td>
-      <td><input type="text" size="20" name="name"></td>
-      </tr>
-      <tr>
-      <td>Фамилия:</td>
-      <td><input type="text" size="20" name="lastname"></td>
-      </tr>
-      <tr>
-       <td></td>
-      <td colspan="2"><input type="submit" value="Зарегистроваться..." name="submit" ></td>
-      </tr>
-     <br>
+    <div class="container">
+      <a href="/index.php"><img src="img/lock.png"></a>
+      <form class="" action="sugnup.php" method="post">
+        <div class="dws-input">
+          <input type="text" name="username" placeholder="Придумайте логин">
+          <input type="password" name="password-1" placeholder="Придумайте пароль">
+          <input type="password" name="password-2" placeholder="Введите пароль еще раз">
+          <input type="text" name="email" placeholder="Ваш email...">
+        </div>
+        <input class="dws-submit" type="submit" name="submit" value="Регистрация">
       </form>
-      </table>
-<font face="Verdana" size="4">Поля со значком <font color="red">*</font> должны быть обязательно заполнены!</font> 
-<br><a href='index.php'>На главную</a>
- </body>
- </html>
+    </div>
+  </body>
+</html>
